@@ -1,3 +1,4 @@
+require 'csv'
 require 'prawn'
 include Prawn::Measurements
 
@@ -53,6 +54,19 @@ def prepare
   end
 end
 
+def read_csv
+  #filename = prompt "Please enter the CSV filename: "
+  filename = "/Users/pivotal/workspace/csv_cheque/cheques.csv"
+  CSV.foreach(filename, headers: true, skip_blanks: true) do |line|
+    p line
+  end
+end
+
+def prompt(*args)
+  print(*args)
+  gets.strip
+end
+
 def draw_content(type, content)
   type_options = OPTIONS[type]
   position = type_options[:position]
@@ -85,6 +99,8 @@ def draw_bearer_line
   line = LINE_OPTIONS[:bearer]
   stroke_line line[:start], line[:end]
 end
+
+read_csv
 
 # Do work!
 prepare
