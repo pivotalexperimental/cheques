@@ -10,7 +10,7 @@ describe Cheque do
 
     its(:date)   { should == "051111" }
     its(:payee)  { should == "Winston Teo" }
-    its(:amount_text)    { should == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only" }
+    its(:amount_text)    { should == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only**" }
     its(:amount_number)  { should == "**1,234.56" }
   end
 

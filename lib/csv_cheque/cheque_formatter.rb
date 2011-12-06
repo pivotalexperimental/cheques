@@ -12,7 +12,7 @@ class ChequeFormatter
     def amount_to_text(number)
       dollars, cents = dollars_and_cents number
 
-      text = "#{dollars.en.numwords} and cents #{cents.en.numwords} only"
+      text = "#{dollars.en.numwords} and cents #{cents.en.numwords} only**"
       text.gsub(/\b[a-z]+/){ |w| w.capitalize }.gsub(",", "").gsub("-", " ")
     end
 
