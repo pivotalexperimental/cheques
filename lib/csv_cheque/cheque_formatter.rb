@@ -26,7 +26,7 @@ class ChequeFormatter
     private
 
     def dollars_and_cents(number)
-      ("%.2f" % number).split('.')
+      ("%.2f" % number.to_f.abs).split('.')
     end
   end
 end

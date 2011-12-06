@@ -20,6 +20,11 @@ describe ChequeFormatter do
 
     subject { ChequeFormatter.amount_to_text(number) }
 
+    context "handles negative numbers" do
+      let(:number) { -1000 }
+      it { should == 'One Thousand And Cents Zero Only' }
+    end
+
     context "1000" do
       let(:number) { 1000 }
       it { should == 'One Thousand And Cents Zero Only' }
@@ -49,6 +54,11 @@ describe ChequeFormatter do
   describe ".amount_to_number" do
 
     subject { ChequeFormatter.amount_to_number(number) }
+
+    context "handles negative numbers" do
+      let(:number) { -1000 }
+      it { should == '**1,000.00' }
+    end
 
     context "1" do
       let(:number) { 1 }
