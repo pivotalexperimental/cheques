@@ -19,7 +19,7 @@ class Cheque
     },
     amount_text: {
       position: [3.4, 1.0],
-      dimensions: [8.2, 1.0]
+      dimensions: [8.2, 1.5]
     },
     amount_number: {
       position: [3.4, 12.0]
@@ -43,7 +43,6 @@ class Cheque
   attr_reader :date, :payee, :amount_number, :amount_text
 
   def initialize(date, payee, amount)
-    convert_cm2pt
     @date   = ChequeFormatter.date_to_ddmmyy(date)
     @payee  = payee
     @amount_text    = ChequeFormatter.amount_to_text(amount)
@@ -51,7 +50,8 @@ class Cheque
   end
 
   def to_pdf
-    Prawn::Document.generate("test.pdf", :page_size => DOC_SIZE, :margin => 0) do |pdf|
+    filename = "#{File.dirname(__FILE__)}/../../cheques/#{@payee.downcase.gsub(/\s/, "_")}_#{rand(0.1).to_s[2,10]}.pdf"
+    Prawn::Document.generate(filename, :page_size => doc_size_in_pt, :margin => 0) do |pdf|
       draw_date pdf, @date
       draw_content pdf, :payee, @payee
       draw_content pdf, :amount_text, @amount_text
@@ -61,23 +61,16 @@ class Cheque
     end
   end
 
-  def convert_cm2pt
-    DOC_SIZE.map! { |v| cm2pt(v) }
-
-    OPTIONS.keys.each do |k|
-      OPTIONS[k][:position].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER}
-      OPTIONS[k][:dimensions].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER} if OPTIONS[k].has_key?(:dimensions)
-    end
-
-    LINE_OPTIONS.keys.each do |k|
-      LINE_OPTIONS[k].keys.each do |j|
-        LINE_OPTIONS[k][j].map! { |v| cm2pt(v) }
-      end
+  def draw_date(pdf, date_string)
+    x = options_in_pt[:date][:position][0]
+    y = options_in_pt[:date][:position][1]
+    date_string.chars.each_with_index do |c, i|
+      pdf.text_box c, :at => [x, y + i * DATE_SPACING], :size => FONT_SIZE, :rotate => 90
     end
   end
 
   def draw_content(pdf, type, content)
-    type_options = OPTIONS[type]
+    type_options = options_in_pt[type]
     position = type_options[:position]
     height = nil; width = nil
 
@@ -89,23 +82,44 @@ class Cheque
     pdf.text_box content, :at => position, :height => height, :width => width, :size => FONT_SIZE, :rotate => 90, :leading => 20
   end
 
-  def draw_date(pdf, date_string)
-    x = OPTIONS[:date][:position][0]
-    y = OPTIONS[:date][:position][1]
-    date_string.chars.each_with_index do |c, i|
-      pdf.text_box c, :at => [x, y + i * DATE_SPACING], :size => FONT_SIZE, :rotate => 90
-    end
-  end
-
   def draw_crosses(pdf)
-    first_line = LINE_OPTIONS[:cross]
+    first_line = line_options_in_pt[:cross]
 
     pdf.stroke_line first_line[:start], first_line[:end]
     pdf.stroke_line first_line[:start].tap { |l| l[0] -= 8 }, first_line[:end].tap { |l| l[1] -= 8 }
   end
 
   def draw_bearer_line(pdf)
-    line = LINE_OPTIONS[:bearer]
+    line = line_options_in_pt[:bearer]
     pdf.stroke_line line[:start], line[:end]
+  end
+
+  private
+
+  def doc_size_in_pt
+    @doc_size ||= DOC_SIZE.map { |v| cm2pt(v) }
+  end
+
+  def options_in_pt
+    @options unless @options.nil?
+
+    @options = Marshal.load(Marshal.dump(OPTIONS)) # deep_copy
+    @options.keys.each do |k|
+      @options[k][:position].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER}
+      @options[k][:dimensions].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER} if @options[k].has_key?(:dimensions)
+    end
+    @options
+  end
+
+  def line_options_in_pt
+    @line_options unless @line_options.nil?
+
+    @line_options = Marshal.load(Marshal.dump(LINE_OPTIONS)) # deep_copy
+    @line_options.keys.each do |k|
+      @line_options[k].keys.each do |j|
+        @line_options[k][j].map! { |v| cm2pt(v) }
+      end
+    end
+    @line_options
   end
 end
