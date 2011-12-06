@@ -1,22 +1,32 @@
+require 'date'
 require 'linguistics'
 Linguistics::use( :en ) # extends Array, String, and Numeric
 
 class TextFormatter
-  def self.number_to_words(number)
-    formatted = "%05.2f" % number
-    dollars, cents = formatted.split '.'
+  class << self
 
-    cheque_text = "#{dollars.en.numwords} and cents #{cents.en.numwords} only"
-    titleize(strip_punctuations(cheque_text))
-  end
+    def date_to_ddmmyy(date)
+      DateTime.parse(date).strftime("%d%m%y")
+    end
 
-  private
+    def amount_to_text(number)
+      dollars, cents = dollars_and_cents number
 
-  def self.titleize(text)
-    text.gsub(/\b[a-z]+/){ |w| w.capitalize }
-  end
+      text = "#{dollars.en.numwords} and cents #{cents.en.numwords} only"
+      text.gsub(/\b[a-z]+/){ |w| w.capitalize }.gsub(",", "").gsub("-", " ")
+    end
 
-  def self.strip_punctuations(text)
-    text.gsub(",", "").gsub("-", " ")
+    def amount_to_number(number)
+      dollars, cents = dollars_and_cents number
+      dollars.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+
+      "**#{dollars}.#{cents}"
+    end
+
+    private
+
+    def dollars_and_cents(number)
+      ("%.2f" % number).split('.')
+    end
   end
 end
