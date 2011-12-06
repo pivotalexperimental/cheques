@@ -18,7 +18,7 @@ class Cheque
       dimensions: [10, 1.5]
     },
     amount_text: {
-      position: [3.4, 1.0],
+      position: [3.4, 1.5],
       dimensions: [8.2, 1.5]
     },
     amount_number: {
@@ -79,7 +79,7 @@ class Cheque
       width  = type_options[:dimensions][0]
     end
 
-    pdf.text_box content, :at => position, :height => height, :width => width, :size => FONT_SIZE, :rotate => 90, :leading => 20
+    pdf.text_box content, :at => position, :height => height, :width => width, :size => FONT_SIZE, :rotate => 90, :leading => 15
   end
 
   def draw_crosses(pdf)
