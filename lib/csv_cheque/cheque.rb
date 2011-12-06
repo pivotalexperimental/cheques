@@ -12,35 +12,9 @@ class Cheque
   # positions are taken from the bottom left corner, in portrait mode
   DOC_SIZE = [8.8, 17.8]
 
-  OPTIONS = {
-    payee: {
-      position: [1.4, 0.5],
-      dimensions: [9.5, 1.5]
-    },
-    amount_text: {
-      position: [3.4, 1.5],
-      dimensions: [8.2, 1.5]
-    },
-    amount_number: {
-      position: [3.4, 12.0]
-    },
-    date: {
-      position: [1.0, 12.5]
-    }
-  }
+  def initialize(date, payee, amount, template=:default)
+    @template = Template::BANKS[template]
 
-  LINE_OPTIONS = {
-    cross: {
-      start: [2.0 , 0],
-      end: [0.0, 2.0]
-    },
-    bearer: {
-      start: [3.15, 11.1],
-      end: [3.15, 12.3]
-    }
-  }
-
-  def initialize(date, payee, amount)
     @date   = ChequeFormatter.date_to_ddmmyy(date)
     @payee  = payee
     @amount_text    = ChequeFormatter.amount_to_text(amount)
@@ -101,7 +75,7 @@ class Cheque
   def options_in_pt
     @options unless @options.nil?
 
-    @options = Marshal.load(Marshal.dump(OPTIONS)) # deep_copy
+    @options = Marshal.load(Marshal.dump(@template[:options])) # deep_copy
     @options.keys.each do |k|
       @options[k][:position].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER}
       @options[k][:dimensions].map! { |v| cm2pt(v) + FONT_SIZE + BUFFER} if @options[k].has_key?(:dimensions)
@@ -112,7 +86,7 @@ class Cheque
   def line_options_in_pt
     @line_options unless @line_options.nil?
 
-    @line_options = Marshal.load(Marshal.dump(LINE_OPTIONS)) # deep_copy
+    @line_options = Marshal.load(Marshal.dump(@template[:lines])) # deep_copy
     @line_options.keys.each do |k|
       @line_options[k].keys.each do |j|
         @line_options[k][j].map! { |v| cm2pt(v) }
