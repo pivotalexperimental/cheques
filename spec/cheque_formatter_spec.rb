@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe TextFormatter do
+describe ChequeFormatter do
   describe ".date_to_ddmmyy" do
-    subject { TextFormatter.date_to_ddmmyy(date) }
+    subject { ChequeFormatter.date_to_ddmmyy(date) }
 
     context "5-Nov-2011" do
       let(:date) { "5-Nov-2011" }
@@ -18,7 +18,7 @@ describe TextFormatter do
   describe ".amount_to_text" do
     # Source: http://www.moneysense.gov.sg/resource/publications/quick_tips/Graphicised%20cheque%20-%20FINAL.pdf
 
-    subject { TextFormatter.amount_to_text(number) }
+    subject { ChequeFormatter.amount_to_text(number) }
 
     context "1000" do
       let(:number) { 1000 }
@@ -48,7 +48,7 @@ describe TextFormatter do
 
   describe ".amount_to_number" do
 
-    subject { TextFormatter.amount_to_number(number) }
+    subject { ChequeFormatter.amount_to_number(number) }
 
     context "1" do
       let(:number) { 1 }

@@ -2,7 +2,7 @@ require 'date'
 require 'linguistics'
 Linguistics::use( :en ) # extends Array, String, and Numeric
 
-class TextFormatter
+class ChequeFormatter
   class << self
 
     def date_to_ddmmyy(date)

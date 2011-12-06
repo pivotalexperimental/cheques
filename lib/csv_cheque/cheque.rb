@@ -44,10 +44,10 @@ class Cheque
 
   def initialize(date, payee, amount)
     convert_cm2pt
-    @date   = TextFormatter.date_to_ddmmyy(date)
+    @date   = ChequeFormatter.date_to_ddmmyy(date)
     @payee  = payee
-    @amount_text    = TextFormatter.amount_to_text(amount)
-    @amount_number  = TextFormatter.amount_to_number(amount)
+    @amount_text    = ChequeFormatter.amount_to_text(amount)
+    @amount_number  = ChequeFormatter.amount_to_number(amount)
   end
 
   def to_pdf
