@@ -15,7 +15,7 @@ class Cheque
   OPTIONS = {
     payee: {
       position: [1.4, 0.5],
-      dimensions: [10, 1.5]
+      dimensions: [9.5, 1.5]
     },
     amount_text: {
       position: [3.4, 1.5],
