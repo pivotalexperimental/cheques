@@ -1,2 +1,4 @@
-require 'rspec'
-require "#{File.dirname(__FILE__)}/../text_formatter"
+require "csv_cheque"
+
+RSpec.configure do |config|
+end
