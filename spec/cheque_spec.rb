@@ -5,13 +5,13 @@ describe Cheque do
   let(:payee)   { "Winston Teo"}
   let(:amount)  { "1234.56" }
 
-  describe "initialize" do
-    subject { Cheque.new(date, payee, amount) }
+  before { @cheque = Cheque.new(date, payee, amount) }
 
-    its(:date)   { should == "051111" }
-    its(:payee)  { should == "Winston Teo" }
-    its(:amount_text)    { should == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only**" }
-    its(:amount_number)  { should == "**1,234.56" }
+  describe "initialize" do
+    it { @cheque.instance_variable_get(:@date).should  == "051111" }
+    it { @cheque.instance_variable_get(:@payee).should == "Winston Teo" }
+    it { @cheque.instance_variable_get(:@amount_text).should   == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only**" }
+    it { @cheque.instance_variable_get(:@amount_number).should == "**1,234.56" }
   end
 
   describe "to_pdf" do

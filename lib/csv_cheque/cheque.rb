@@ -40,8 +40,6 @@ class Cheque
     }
   }
 
-  attr_reader :date, :payee, :amount_number, :amount_text
-
   def initialize(date, payee, amount)
     @date   = ChequeFormatter.date_to_ddmmyy(date)
     @payee  = payee
