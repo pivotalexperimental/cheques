@@ -1,1 +1,1 @@
-rvm --create use ruby-1.9.2-p180@csv_cheque
+rvm --create use ruby-1.9.2-p290@cheques

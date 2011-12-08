@@ -1,4 +1,4 @@
-require "csv_cheque"
+require "cheques"
 
 RSpec.configure do |config|
 end

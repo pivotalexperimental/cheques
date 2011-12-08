@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/lib/csv_cheque"
+require "#{File.dirname(__FILE__)}/lib/cheques"
 require "csv"
 
 filename = "#{File.dirname(__FILE__)}/csv/cheques.csv"
