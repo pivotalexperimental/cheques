@@ -1,4 +1,4 @@
-# What
+### What
 
 Have you been writing your cheques? That's old.. 
 
@@ -6,7 +6,7 @@ You know what you should do? You should **PRINT YOUR CHEQUES**!
 
 *Proudly brought to you by Team Singapore.*
 
-# How
+### How
 
 - CSV should be have the following headers: ``[Date, Chq No, Name, Description, Amount]``
 
