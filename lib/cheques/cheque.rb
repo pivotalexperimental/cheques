@@ -28,7 +28,6 @@ class Cheque
       draw_content pdf, :payee, @payee
       draw_content pdf, :amount_text, @amount_text
       draw_content pdf, :amount_number, @amount_number
-      draw_crosses pdf
       draw_bearer_line pdf
     end
   end
@@ -52,13 +51,6 @@ class Cheque
     end
 
     pdf.text_box content, :at => position, :height => height, :width => width, :size => FONT_SIZE, :rotate => 90, :leading => 15
-  end
-
-  def draw_crosses(pdf)
-    first_line = line_options_in_pt[:cross]
-
-    pdf.stroke_line first_line[:start], first_line[:end]
-    pdf.stroke_line first_line[:start].tap { |l| l[0] -= 8 }, first_line[:end].tap { |l| l[1] -= 8 }
   end
 
   def draw_bearer_line(pdf)
