@@ -22,32 +22,32 @@ describe ChequeFormatter do
 
     context "handles negative numbers" do
       let(:number) { -1000 }
-      it { should == 'One Thousand And Cents Zero Only**' }
+      it { should == 'One Thousand And Cents Zero Only' }
     end
 
     context "1000" do
       let(:number) { 1000 }
-      it { should == 'One Thousand And Cents Zero Only**' }
+      it { should == 'One Thousand And Cents Zero Only' }
     end
 
     context "1001" do
       let(:number) { 1001 }
-      it { should == 'One Thousand And One And Cents Zero Only**' }
+      it { should == 'One Thousand And One And Cents Zero Only' }
     end
 
     context "1010" do
       let(:number) { 1010 }
-      it { should == 'One Thousand And Ten And Cents Zero Only**' }
+      it { should == 'One Thousand And Ten And Cents Zero Only' }
     end
 
     context "1100" do
       let(:number) { 1100 }
-      it { should == 'One Thousand One Hundred And Cents Zero Only**' }
+      it { should == 'One Thousand One Hundred And Cents Zero Only' }
     end
 
     context "1303.53" do
       let(:number) { 1303.53 }
-      it { should == 'One Thousand Three Hundred And Three And Cents Fifty Three Only**' }
+      it { should == 'One Thousand Three Hundred And Three And Cents Fifty Three Only' }
     end
   end
 
@@ -57,37 +57,37 @@ describe ChequeFormatter do
 
     context "handles negative numbers" do
       let(:number) { -1000 }
-      it { should == '**1,000.00' }
+      it { should == '1,000.00' }
     end
 
     context "1" do
       let(:number) { 1 }
-      it { should == '**1.00' }
+      it { should == '1.00' }
     end
 
     context "10" do
       let(:number) { 10 }
-      it { should == '**10.00' }
+      it { should == '10.00' }
     end
 
     context "100" do
       let(:number) { 100 }
-      it { should == '**100.00' }
+      it { should == '100.00' }
     end
 
     context "1000" do
       let(:number) { 1000 }
-      it { should == '**1,000.00' }
+      it { should == '1,000.00' }
     end
 
     context "1000000" do
       let(:number) { 1000000 }
-      it { should == '**1,000,000.00' }
+      it { should == '1,000,000.00' }
     end
 
     context "1000000.50" do
       let(:number) { 1000000.50 }
-      it { should == '**1,000,000.50' }
+      it { should == '1,000,000.50' }
     end
   end
 end

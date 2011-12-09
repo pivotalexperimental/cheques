@@ -10,8 +10,8 @@ describe Cheque do
   describe "initialize" do
     it { @cheque.instance_variable_get(:@date).should  == "051111" }
     it { @cheque.instance_variable_get(:@payee).should == "Winston Teo" }
-    it { @cheque.instance_variable_get(:@amount_text).should   == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only**" }
-    it { @cheque.instance_variable_get(:@amount_number).should == "**1,234.56" }
+    it { @cheque.instance_variable_get(:@amount_text).should   == "One Thousand Two Hundred And Thirty Four And Cents Fifty Six Only" }
+    it { @cheque.instance_variable_get(:@amount_number).should == "1,234.56" }
   end
 
   describe "to_pdf" do
