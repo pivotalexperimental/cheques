@@ -13,6 +13,10 @@ class Template
           position: [0.5, 6.5],
           font_size: 7.5
         },
+        desc: {
+          position: [6.0, 2.0],
+          font_size: 7.5
+        },
         amount_text: {
           position: [3.4, 1.5],
           dimensions: [8.2, 1.5]

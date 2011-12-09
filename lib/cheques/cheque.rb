@@ -12,11 +12,12 @@ class Cheque
   # positions are taken from the bottom left corner, in portrait mode
   DOC_SIZE = [8.8, 17.8]
 
-  def initialize(date, payee, amount, template=:default)
+  def initialize(date, payee, desc, amount, template=:default)
     @template = Template::BANKS[template]
 
     @date   = ChequeFormatter.date_to_ddmmyy(date)
     @payee  = payee
+    @desc   = desc
     @amount_text    = ChequeFormatter.amount_to_text(amount)
     @amount_number  = ChequeFormatter.amount_to_number(amount)
   end
@@ -27,6 +28,7 @@ class Cheque
       draw_date pdf, @date
       draw_content pdf, :payee, @payee
       draw_content pdf, :payee_only, "NOT NEGOTIABLE, A/C PAYEE ONLY"
+      draw_content pdf, :desc, @desc if @desc
       draw_content pdf, :amount_text, @amount_text
       draw_content pdf, :amount_number, @amount_number
       draw_bearer_line pdf
