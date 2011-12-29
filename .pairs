@@ -1,6 +1,8 @@
 pairs:
   dk: Derrick Ko
   wt: Winston Teo
+  mg: Mike Grafton
+  wei: Wei Lu
 email:
   prefix: pair
   domain: pivotallabs.com
