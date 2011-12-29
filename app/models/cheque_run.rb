@@ -7,10 +7,21 @@ class ChequeRun < ActiveRecord::Base
   end
 
   def self.from_csv_string(string)
-    require 'csv' #TODO: alternatives?
     cheque_run = ChequeRun.new
     CSV.parse(string, headers: true, skip_blanks: true).map do |line|
-      cheque_run.cheques << Cheque.create
+      date = line["Date"]
+      payee = line["Name"]
+      desc = line["Description"]
+      amount = line["Amount"]
+
+      cheque = Cheque.new(
+          :date => date,
+          :payee => payee,
+          :description => desc,
+          :amount => amount
+      )
+
+      cheque_run.cheques << cheque if cheque.valid?
     end
 
     cheque_run.save #TODO: should I?

@@ -7,6 +7,10 @@ class AddChequeRunsAndCheques < ActiveRecord::Migration
 
     create_table :cheques do |t|
       t.references :cheque_run
+      t.date :date
+      t.string :payee
+      t.string :description
+      t.float :amount
       t.timestamps
     end
 

@@ -1,5 +1,16 @@
 <table id="cheque_run">
+  <th>Date</th>
+  <th>Name</th>
+  <th>Description</th>
+  <th>Amount</th>
+
   <% @cheque_run.cheques.each do |cheque| %>
-  <tr><td><%=cheque.id%></td></tr>
+  <tr>
+    <td><%=cheque.date%></td>
+    <td><%=cheque.payee%></td>
+    <td><%=cheque.description%></td>
+    <td><%=cheque.amount%></td>
+  </tr>
   <% end %>
+
 </table>

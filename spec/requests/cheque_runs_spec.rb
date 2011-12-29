@@ -11,5 +11,6 @@ describe '/cheque_runs' do
     click_button 'Submit'
 
     page.should have_css("table#cheque_run tr", :count => 16)
+    page.should have_css("table#cheque_run th", :count => 4)
   end
 end

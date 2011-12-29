@@ -19,6 +19,10 @@ ActiveRecord::Schema.define(:version => 20111229064933) do
 
   create_table "cheques", :force => true do |t|
     t.integer  "cheque_run_id"
+    t.date     "date"
+    t.string   "payee"
+    t.string   "description"
+    t.float    "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
