@@ -1,2 +1,5 @@
 <table id="cheque_run">
+  <% @cheque_run.cheques.each do |cheque| %>
+  <tr><td><%=cheque.id%></td></tr>
+  <% end %>
 </table>

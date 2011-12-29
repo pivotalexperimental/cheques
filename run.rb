@@ -13,7 +13,7 @@ CSV.foreach(filename, headers: true, skip_blanks: true) do |line|
   next if payee.nil? || payee.empty?
 
   puts "==> PDF-ing cheque for #{payee}, desc: #{desc}, dated #{date}, amount #{amount}\n"
-  cheque = Cheque.new(date, payee, desc, amount)
+  cheque = PrintableCheque.new(date, payee, desc, amount)
   cheque.to_pdf
 
   cheques += 1

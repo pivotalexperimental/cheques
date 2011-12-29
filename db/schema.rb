@@ -17,4 +17,10 @@ ActiveRecord::Schema.define(:version => 20111229064933) do
     t.datetime "updated_at"
   end
 
+  create_table "cheques", :force => true do |t|
+    t.integer  "cheque_run_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end

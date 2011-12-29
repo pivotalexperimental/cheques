@@ -1,7 +1,7 @@
 require 'prawn'
 include Prawn::Measurements
 
-class Cheque
+class PrintableCheque
 
   # constants
   FONT_SIZE     = 11

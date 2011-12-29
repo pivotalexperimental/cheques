@@ -2,13 +2,14 @@
 
 <body>
 
-<form method="post" action="/cheque_runs">
+
+<%= form_tag({:action => :create}, :multipart => true) do %>
   <label for="upload_input">
     Cheque File
   </label>
-  <input id="upload_input" name="upload_input" type="file">
-  <input type="submit" value="Submit">
-</form>
+  <%= file_field_tag 'upload_input' %>
+  <%= submit_tag 'Submit'%>
+<% end %>
 
 </body>
 

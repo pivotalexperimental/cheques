@@ -1,12 +1,12 @@
 require "spec_helper"
 
-describe Cheque do
+describe PrintableCheque do
   let(:date)    { "5-Nov-2011" }
   let(:payee)   { "Winston Teo"}
   let(:desc)    { "A jolly good fellow"}
   let(:amount)  { "1234.56" }
 
-  before { @cheque = Cheque.new(date, payee, desc, amount) }
+  before { @cheque = PrintableCheque.new(date, payee, desc, amount) }
 
   describe "initialize" do
     it { @cheque.instance_variable_get(:@date).should  == "051111" }
@@ -17,7 +17,7 @@ describe Cheque do
   end
 
   describe "to_pdf" do
-    before { @cheque = Cheque.new(date, payee, desc, amount) }
+    before { @cheque = PrintableCheque.new(date, payee, desc, amount) }
 
     it "delegates to prawn" do
       Prawn::Document.should_receive(:generate)
