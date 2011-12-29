@@ -2,14 +2,11 @@ require 'spec_helper'
 
 describe "/" do
   before do
-    page.driver.browser.basic_authorize(ApplicationController::USER_ID, ApplicationController::PASSWORD)
+    fill_in_basic_auth
   end
 
-  it "has a form that accepts a file upload" do
+  it "redirects to /cheque_runs/new" do
     visit '/'
-    attach_file('Cheque File', "#{Rails.root}/spec/fixtures/cheques.csv")
-    click_button 'Submit'
-
-    page.should have_css("table")
+    page.current_path.should == new_cheque_run_path
   end
 end

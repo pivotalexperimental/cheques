@@ -5,4 +5,7 @@ class ChequeRunsController < ApplicationController
     redirect_to cheque_run_path(@cheque_run)
   end
 
+  def new
+  end
+
 end

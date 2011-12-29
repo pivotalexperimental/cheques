@@ -14,7 +14,7 @@ describe HomeController do
 
       it "is successful" do
         get :index
-        response.should be_success
+        response.code.should == "302"
       end
     end
 
