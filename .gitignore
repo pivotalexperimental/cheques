@@ -1,3 +1,8 @@
-.idea/
-cheques/*.pdf
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
 .DS_Store
+.idea
+.pdf
+cheques
