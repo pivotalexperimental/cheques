@@ -39,7 +39,7 @@ CSV_DATA
 
           cheque = cheque_run.cheques.first
           cheque.payee.should == 'IRAS'
-          cheque.amount.should == -1160
+          cheque.amount.should == 1160
           cheque.description.should == '201012345D'
           cheque.date.should == Date.new(2011, 11, 4)
         }.should change(ChequeRun, :count).by 1

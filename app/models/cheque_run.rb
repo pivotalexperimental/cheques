@@ -12,13 +12,13 @@ class ChequeRun < ActiveRecord::Base
       date = line["Date"]
       payee = line["Name"]
       desc = line["Description"]
-      amount = line["Amount"]
+      amount = line["Amount"].to_f
 
       cheque = Cheque.new(
           :date => date,
           :payee => payee,
           :description => desc,
-          :amount => amount
+          :amount => -amount
       )
 
       cheque_run.cheques << cheque if cheque.valid?

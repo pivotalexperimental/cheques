@@ -11,6 +11,11 @@ describe '/cheque_runs' do
     click_button 'Submit'
 
     page.should have_css("table#cheque_run tr", :count => 16)
-    page.should have_css("table#cheque_run th", :count => 4)
+
+    page.should have_css("table#cheque_run td", :text => "IRAS")
+    page.should have_css("table#cheque_run td", :text => "201012345D")
+    page.should have_css("table#cheque_run td", :text => "2011-11-04")
+    page.should have_css("table#cheque_run td", :text => "1160")
+    page.should_not have_css("table#cheque_run td", :text => "-1160")
   end
 end

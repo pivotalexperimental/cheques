@@ -9,6 +9,7 @@ gem 'linguistics', '1.0.9'
 group :development do
   gem 'heroku', '2.17.0'
   gem 'pivotal_git_scripts', '1.1.0'
+  gem 'taps', '0.3.23'
 end
 
 group :test do
