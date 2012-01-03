@@ -5,7 +5,7 @@ describe Cheque do
   let(:cheque) { Cheque.create(
     payee: 'wei',
     description: 'bonus!',
-    date: 1.day.ago,
+    date: 1.day.ago.to_date,
     amount: 2_000_000
   ) }
 
@@ -31,6 +31,15 @@ describe Cheque do
       subject.read.should == cheque.to_prawn.render.force_encoding("UTF-8")
     end
     
+  end
+
+  describe "#filename" do
+    subject { cheque.filename }
+
+    it "should equal 'payee_date_id.pdf'" do
+      subject.should == "wei_#{1.day.ago.to_date.to_s(:file)}_#{cheque.id}.pdf"
+    end
+
   end
 
 end

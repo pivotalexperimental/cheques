@@ -32,7 +32,7 @@ class ChequeRun < ActiveRecord::Base
     temp = Tempfile.new id.to_s
     Zip::ZipOutputStream.open(temp.path) do |z|
       cheques.each do |cheque|
-        z.put_next_entry(cheque.id.to_s)
+        z.put_next_entry cheque.filename
         z.write cheque.to_tempfile.read
       end
     end

@@ -13,4 +13,8 @@ class Cheque < ActiveRecord::Base
     temp.rewind
     temp
   end
+
+  def filename
+    "#{payee}_#{date.to_s(:file)}_#{id}.pdf"
+  end
 end
