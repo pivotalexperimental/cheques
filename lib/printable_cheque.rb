@@ -22,9 +22,8 @@ class PrintableCheque
     @amount_number  = ChequeFormatter.amount_to_number(amount)
   end
 
-  def to_pdf
-    filename = "#{File.dirname(__FILE__)}/../../cheques/#{@payee.downcase.gsub(/\s/, "_")}_#{rand(0.1).to_s[2,10]}.pdf"
-    Prawn::Document.generate(filename, :page_size => doc_size_in_pt, :margin => 0) do |pdf|
+  def to_prawn
+    Prawn::Document.new :page_size => doc_size_in_pt, :margin => 0 do |pdf|
       draw_date pdf, @date
       draw_content pdf, :payee, @payee
       draw_content pdf, :payee_only, "NOT NEGOTIABLE, A/C PAYEE ONLY"

@@ -1,6 +1,8 @@
 Cheques::Application.routes.draw do
   root :to => "home#index"
+
   resources :cheque_runs
+  resources :cheques
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

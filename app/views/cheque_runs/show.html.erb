@@ -5,11 +5,12 @@
   <th>Amount</th>
 
   <% @cheque_run.cheques.each do |cheque| %>
-  <tr>
+  <tr id="cheque_<%= cheque.id %>" class="cheque">
     <td><%=cheque.date%></td>
     <td><%=cheque.payee%></td>
     <td><%=cheque.description%></td>
     <td><%=cheque.amount%></td>
+    <td><%=link_to "Download", cheque_path(cheque, :format => 'pdf') %></td>
   </tr>
   <% end %>
 
