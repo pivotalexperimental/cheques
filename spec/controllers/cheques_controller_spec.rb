@@ -12,10 +12,7 @@ describe ChequesController do
   describe "#show" do
 
     before do
-      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(
-          ApplicationController::USER_ID,
-          ApplicationController::PASSWORD
-      )
+      basic_auth_login
 
       @prawn_document = double(:prawn_document)
       cheque.stub!(:to_prawn).and_return(@prawn_document)

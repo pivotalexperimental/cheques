@@ -147,4 +147,5 @@ DEPENDENCIES
   prawn (= 0.12.0)
   rails (= 3.0.5)
   rspec-rails (= 2.7.0)
+  rubyzip
   taps (= 0.3.23)

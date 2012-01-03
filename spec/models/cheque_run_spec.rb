@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe ChequeRun do
 
-  describe "ChequeRun.from_csv_string" do
-
+  describe ".from_csv_string" do
     context "when encounters a line of invalid string" do
       before do
         @csv_string = <<CSV_DATA
@@ -45,6 +44,19 @@ CSV_DATA
         }.should change(ChequeRun, :count).by 1
       end
     end
+  end
 
+
+  describe "#to_tempfile" do
+    subject { cheque_run.to_tempfile }
+
+    let(:cheque_run) { ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv') }
+    let(:a_lot_of) { cheque_run.cheques.size }
+
+    it { should be_a(Tempfile) }
+
+    it "uses tempfiles of all its cheques" do
+      Zip::ZipFile.open(subject).should have(a_lot_of).cheques
+    end
   end
 end

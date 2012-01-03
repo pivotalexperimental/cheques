@@ -27,4 +27,15 @@ class ChequeRun < ActiveRecord::Base
     cheque_run.save #TODO: should I?
     return cheque_run
   end
+
+  def to_tempfile
+    temp = Tempfile.new id.to_s
+    Zip::ZipOutputStream.open(temp.path) do |z|
+      cheques.each do |cheque|
+        z.put_next_entry(cheque.id.to_s)
+        z.write cheque.to_tempfile.read
+      end
+    end
+    temp
+  end
 end

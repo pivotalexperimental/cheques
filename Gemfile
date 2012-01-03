@@ -3,8 +3,11 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.5'
 
 gem 'pg', '0.12.0'
+
 gem 'prawn', '0.12.0'
 gem 'linguistics', '1.0.9'
+
+gem 'rubyzip', require: 'zip/zip'
 
 group :development do
   gem 'heroku', '2.17.0'

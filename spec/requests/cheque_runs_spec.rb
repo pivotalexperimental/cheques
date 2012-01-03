@@ -28,22 +28,27 @@ describe '/cheque_runs/1' do
     visit cheque_run_path cheque_run
   end
 
-  it "displays the parsed csv with download links" do
-    page.should have_css("table#cheque_run tr", :count => cheque_run.cheques.size)
-
-    cheque = cheque_run.cheques.first
-
-    within "tr#cheque_#{cheque.id}" do
-      page.should have_css("td", :text => cheque.payee)
-      page.should have_css("td", :text => cheque.description)
-      page.should have_css("td", :text => cheque.date.to_s)
-      page.should have_css("td", :text => /^#{cheque.amount}$/)
-      page.should have_css("td a[href='#{cheque_path(cheque, :format => 'pdf')}']")
-
-      click_link 'Download'
+  it "displays the parsed csv" do
+    cheque_run.cheques.each do |cheque|
+      within "tr#cheque_#{cheque.id}" do
+        page.should have_css("td", :text => cheque.payee)
+        page.should have_css("td", :text => cheque.description)
+        page.should have_css("td", :text => cheque.date.to_s)
+        page.should have_css("td", :text => /^#{cheque.amount}$/)
+      end
     end
+  end
 
-    current_path.should == cheque_path(cheque, :format => 'pdf')
+  it "has download links" do
+    cheque_run.cheques.each do |cheque|
+      within "tr#cheque_#{cheque.id}" do
+        page.should have_css("td a[href='#{cheque_path(cheque, :format => 'pdf')}']")
+      end
+    end
+  end
+
+  it "has a download all link" do
+    page.should have_css("a[href='#{cheque_run_path(cheque_run, :format => 'zip')}']")
   end
 
 end

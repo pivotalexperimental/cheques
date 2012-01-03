@@ -1,5 +1,7 @@
 class ChequeRunsController < ApplicationController
 
+  respond_to :html, :zip
+  
   def new
   end
 
@@ -9,7 +11,18 @@ class ChequeRunsController < ApplicationController
   end
 
   def show
-    @cheque_run = ChequeRun.find(params[:id])
+    @cheque_run = ChequeRun.find params[:id]
+
+    respond_with @cheque_run do |format|
+      format.zip {
+        tempfile = @cheque_run.to_tempfile
+        send_file tempfile.path,
+                  :type => 'application/zip',
+                  :filename => @cheque_run.id.to_s
+        tempfile.close
+      }
+    end
+
   end
   
 end

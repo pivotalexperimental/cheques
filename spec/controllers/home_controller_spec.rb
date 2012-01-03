@@ -6,10 +6,7 @@ describe HomeController do
     context "when the basic auth credentials are supplied" do
 
       before do
-        request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(
-            ApplicationController::USER_ID,
-            ApplicationController::PASSWORD
-        )
+        basic_auth_login
       end
 
       it "is successful" do

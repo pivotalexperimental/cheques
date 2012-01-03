@@ -23,4 +23,14 @@ describe Cheque do
       subject.should be_a(Prawn::Document)
     end
   end
+
+  describe "#to_tempfile" do
+    subject { cheque.to_tempfile }
+
+    it "wraps up the output stream" do
+      subject.read.should == cheque.to_prawn.render.force_encoding("UTF-8")
+    end
+    
+  end
+
 end
