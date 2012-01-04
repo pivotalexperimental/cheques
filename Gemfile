@@ -19,10 +19,7 @@ group :development do
   gem 'taps'
 end
 
-group :test do
-  gem 'rspec-rails'
-end
-
 group :development, :test do
+  gem 'rspec-rails'
   gem 'capybara'
 end
