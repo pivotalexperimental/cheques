@@ -51,4 +51,16 @@ describe '/cheque_runs/1' do
     page.should have_css("a[href='#{cheque_run_path(cheque_run, :format => 'zip')}']")
   end
 
+  context "following the download link" do
+    before do
+      click_link "Download All"
+    end
+
+    it "redirects to cheque_run/new on reload" do
+      visit current_path
+      current_path.should == new_cheque_run_path
+    end
+
+  end
+
 end
