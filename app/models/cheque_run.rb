@@ -1,5 +1,5 @@
 class ChequeRun < ActiveRecord::Base
-  has_many :cheques
+  has_many :cheques, :dependent => :destroy
 
   def self.from_csv_file(file)
     string = file.read
