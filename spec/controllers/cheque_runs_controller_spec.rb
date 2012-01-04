@@ -23,8 +23,9 @@ describe ChequeRunsController do
 
       it { should be_success }
 
-      it "returns a zip" do
+      it "returns pleasantly named zip" do
         subject
+        response.headers['Content-Disposition'].should match(/cheque_run_#{cheque_run.id}\.zip/i)
         response.headers['Content-Type'].should == 'application/zip'
       end
     end

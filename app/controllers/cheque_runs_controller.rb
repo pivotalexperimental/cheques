@@ -18,7 +18,7 @@ class ChequeRunsController < ApplicationController
         tempfile = @cheque_run.to_tempfile
         send_file tempfile.path,
                   :type => 'application/zip',
-                  :filename => @cheque_run.id.to_s
+                  :filename => "cheque_run_#{@cheque_run.id}.zip"
         tempfile.close
       }
     end
