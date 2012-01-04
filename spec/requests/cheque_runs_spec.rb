@@ -39,10 +39,10 @@ describe '/cheque_runs/1' do
     end
   end
 
-  it "has download links" do
+  it "has preview links" do
     cheque_run.cheques.each do |cheque|
       within "tr#cheque_#{cheque.id}" do
-        page.should have_css("td a[href='#{cheque_path(cheque, :format => 'pdf')}']")
+        page.should have_css("td a[href='#{cheque_path(cheque, :format => 'pdf')}']", :text => "Preview")
       end
     end
   end

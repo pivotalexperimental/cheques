@@ -10,7 +10,7 @@
     <td><%=cheque.payee%></td>
     <td><%=cheque.description%></td>
     <td><%=cheque.amount%></td>
-    <td><%=link_to "Download", cheque_path(cheque, :format => 'pdf'), :title => cheque.filename %></td>
+    <td><%=link_to "Preview", cheque_path(cheque, :format => 'pdf'), :title => cheque.filename %></td>
   </tr>
   <% end %>
 </table>

@@ -5,7 +5,7 @@ class ChequesController < ApplicationController
   def show
     @cheque = Cheque.find params[:id]
     send_data @cheque.to_prawn.render,
-              filename: @cheque.filename,
+              disposition: 'inline',
               type: 'application/pdf'
   end
 
