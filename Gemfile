@@ -1,24 +1,24 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '>=3.1'
 
-gem 'pg', '0.12.0'
+gem 'pg'
 
-gem 'prawn', '0.12.0'
-gem 'linguistics', '1.0.9'
+gem 'prawn'
+gem 'linguistics'
 
 gem 'rubyzip', require: 'zip/zip'
 
 group :development do
-  gem 'heroku', '2.17.0'
-  gem 'pivotal_git_scripts', '1.1.0'
-  gem 'taps', '0.3.23'
+  gem 'heroku'
+  gem 'pivotal_git_scripts'
+  gem 'taps'
 end
 
 group :test do
-  gem 'rspec-rails', '2.7.0'
+  gem 'rspec-rails'
 end
 
 group :development, :test do
-  gem 'capybara', '1.1.2'
+  gem 'capybara'
 end
