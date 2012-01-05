@@ -56,9 +56,9 @@ describe '/cheque_runs/1' do
       click_link "Download All"
     end
 
-    it "redirects to cheque_run/new on reload" do
+    it "redirects to root on reload" do
       visit current_path
-      current_path.should == new_cheque_run_path
+      current_path.should == root_path
     end
 
   end

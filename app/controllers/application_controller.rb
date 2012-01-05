@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   USER_ID = "pivotal"
   PASSWORD = "toddy8apple"
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :new_cheque_run_redirect
+  rescue_from ActiveRecord::RecordNotFound, :with => :root_redirect
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def new_cheque_run_redirect
-    redirect_to new_cheque_run_path
+  def root_redirect
+    redirect_to root_path
   end
 
 end
