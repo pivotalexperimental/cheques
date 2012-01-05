@@ -22,3 +22,11 @@ section {
   min-height: 20em;
   display: block;
 }
+
+th.date {
+  width: 6em;
+}
+
+td.amount {
+  text-align: right;
+}

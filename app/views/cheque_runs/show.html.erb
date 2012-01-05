@@ -1,5 +1,5 @@
 <table id="cheque_run">
-  <th>Date</th>
+  <th class="date">Date</th>
   <th>Name</th>
   <th>Description</th>
   <th>Amount</th>
@@ -9,7 +9,7 @@
     <td><%=cheque.date%></td>
     <td><%=cheque.payee%></td>
     <td><%=cheque.description%></td>
-    <td><%=cheque.amount%></td>
+    <td class="amount"><%=number_to_currency cheque.amount%></td>
     <td><%=link_to "Preview", cheque_path(cheque, :format => 'pdf'), :title => cheque.filename %></td>
   </tr>
   <% end %>

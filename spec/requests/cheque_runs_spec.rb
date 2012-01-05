@@ -34,7 +34,9 @@ describe '/cheque_runs/1' do
         page.should have_css("td", :text => cheque.payee)
         page.should have_css("td", :text => cheque.description)
         page.should have_css("td", :text => cheque.date.to_s)
-        page.should have_css("td", :text => /^#{cheque.amount}$/)
+
+        amount = number_to_currency cheque.amount
+        page.should have_css("td.amount", :text => amount)
       end
     end
   end
