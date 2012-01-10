@@ -4,7 +4,7 @@ describe "/cheque_runs resource" do
 
   include Warden::Test::Helpers
   after { Warden.test_reset! }
-  
+
   before do
     fill_in_basic_auth
     @user = User.create(email: "email@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
@@ -12,6 +12,32 @@ describe "/cheque_runs resource" do
   end
 
   describe '/cheque_runs' do
+    it "has a list of cheque runs that the current user owns" do
+      csv_string_3_cheques = <<CSV_DATA
+Date,Chq No,Name,Description,Amount
+4-Nov-2011,788981,IRAS,201012345D,-1160
+4-Nov-2011,788987,Abhaya Shenoy REIMB,,-67.4
+4-Nov-2011,788979,BBH (Hachi),,-3250
+CSV_DATA
+      cheque_run = ChequeRun.from_csv_string csv_string_3_cheques, @user
+      csv_string_1_cheque = <<CSV_DATA
+Date,Chq No,Name,Description,Amount
+4-Nov-2011,788981,IRAS,201012345D,-1160
+CSV_DATA
+      wrong_user = User.create(email: "email3@example.com", password: "foobar", first_name: "cris", last_name: 'doe')
+      ChequeRun.from_csv_string csv_string_1_cheque, wrong_user
+
+      visit cheque_runs_path
+      page.should have_css("table#cheque_runs tr", :count => 1)
+
+      within "table#cheque_runs tr" do
+        page.should have_css("td.count", :text => "3")
+      end
+
+    end
+  end
+
+  describe '/cheque_runs/new' do
     it "has a form that accepts and parses a cheque csv, and creates a ChequeRun with the current user as the owner" do
       visit new_cheque_run_path
       attach_file('Cheque File', Rails.root.join('spec', 'fixtures', 'cheques.csv'))

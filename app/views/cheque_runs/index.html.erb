@@ -1,0 +1,9 @@
+<table id="cheque_runs">
+  <th>Number of Cheques</th>
+  <% @cheque_runs.each do |cheque_run| %>
+  <tr>
+    <td class="count"><%= cheque_run.cheques.count %></td>
+  </tr>
+  <% end %>
+</table>
+
