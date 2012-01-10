@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '>=3.1'
+gem 'devise', '1.5.3'
 
 gem 'pg'
 gem 'prawn'
