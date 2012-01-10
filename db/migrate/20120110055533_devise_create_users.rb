@@ -1,5 +1,6 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
+    drop_table :users
     create_table(:users) do |t|
       t.database_authenticatable :null => false
       t.rememberable
