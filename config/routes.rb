@@ -1,5 +1,7 @@
 Cheques::Application.routes.draw do
 
+  devise_for :users
+
   resources :cheque_runs
   resources :cheques
 

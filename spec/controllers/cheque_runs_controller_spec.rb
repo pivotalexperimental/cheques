@@ -10,6 +10,8 @@ describe ChequeRunsController do
 
     before do
       basic_auth_login
+      @user = User.create(email: 'email@example.com', password: 'foobar')
+      sign_in @user
     end
 
     context "html" do

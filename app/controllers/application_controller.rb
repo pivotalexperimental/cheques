@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate
+  before_filter :authenticate_user!
 
   USER_ID = "pivotal"
   PASSWORD = "toddy8apple"
