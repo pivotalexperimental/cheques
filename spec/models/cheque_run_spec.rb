@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe ChequeRun do
 
+  before do
+    @user = User.create(email: "cheque_runner@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
+  end
+
   describe ".from_csv_string" do
     context "when encounters a line of invalid string" do
       before do
@@ -13,8 +17,7 @@ CSV_DATA
       end
 
       it "ignores lines without a payee or an amount" do
-
-        cheque_run = ChequeRun.from_csv_string @csv_string
+        cheque_run = ChequeRun.from_csv_string @csv_string, @user
         cheque_run.cheques.size.should == 0
       end
     end
@@ -32,7 +35,7 @@ CSV_DATA
 
       it "creates a cheque_run together with cheques from the csv string passed in" do
         lambda {
-          cheque_run = ChequeRun.from_csv_string @csv_string
+          cheque_run = ChequeRun.from_csv_string @csv_string, @user
 
           cheque_run.cheques.size.should == 3
 
@@ -43,6 +46,11 @@ CSV_DATA
           cheque.date.should == Date.new(2011, 11, 4)
         }.should change(ChequeRun, :count).by 1
       end
+
+      it "sets the owner" do
+        cheque_run = ChequeRun.from_csv_string @csv_string, @user
+        cheque_run.reload.owner.should == @user
+      end
     end
   end
 
@@ -50,7 +58,7 @@ CSV_DATA
   describe "#to_tempfile" do
     subject { cheque_run.to_tempfile }
 
-    let(:cheque_run) { ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv') }
+    let(:cheque_run) { ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), @user }
     let(:a_lot_of) { cheque_run.cheques.size }
 
     it { should be_a(Tempfile) }

@@ -11,11 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110055533) do
+ActiveRecord::Schema.define(:version => 20120110080900) do
 
   create_table "cheque_runs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
   end
 
   create_table "cheques", :force => true do |t|
@@ -34,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20120110055533) do
     t.datetime "remember_created_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

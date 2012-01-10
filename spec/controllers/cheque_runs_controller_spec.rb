@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe ChequeRunsController do
 
-  let!(:cheque_run) { ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv') }
+  let!(:cheque_run) do
+    user = User.create!(email: "cheque_runner@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
+    ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), user
+  end
 
   describe "#show" do
 
@@ -10,7 +13,7 @@ describe ChequeRunsController do
 
     before do
       basic_auth_login
-      @user = User.create(email: 'email@example.com', password: 'foobar')
+      @user = User.create!(email: 'email@example.com', password: 'foobar')
       sign_in @user
     end
 

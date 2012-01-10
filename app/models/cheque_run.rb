@@ -1,12 +1,13 @@
 class ChequeRun < ActiveRecord::Base
   has_many :cheques, :dependent => :destroy
+  belongs_to :owner, :class_name => "User"
 
-  def self.from_csv_file(file)
+  def self.from_csv_file(file, owner)
     string = file.read
-    self.from_csv_string(string)
+    self.from_csv_string(string, owner)
   end
 
-  def self.from_csv_string(string)
+  def self.from_csv_string(string, owner)
     cheque_run = ChequeRun.new
     CSV.parse(string, headers: true, skip_blanks: true).map do |line|
       date = line["Date"]
@@ -24,7 +25,8 @@ class ChequeRun < ActiveRecord::Base
       cheque_run.cheques << cheque if cheque.valid?
     end
 
-    cheque_run.save #TODO: should I?
+    cheque_run.owner = owner
+    cheque_run.save
     return cheque_run
   end
 

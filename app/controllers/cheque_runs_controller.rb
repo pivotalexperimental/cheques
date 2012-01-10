@@ -6,7 +6,7 @@ class ChequeRunsController < ApplicationController
   end
 
   def create
-    @cheque_run = ChequeRun.from_csv_file(params[:upload_input])
+    @cheque_run = ChequeRun.from_csv_file(params[:upload_input], current_user)
     redirect_to cheque_run_path(@cheque_run)
   end
 
