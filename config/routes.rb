@@ -5,7 +5,7 @@ Cheques::Application.routes.draw do
   resources :cheque_runs
   resources :cheques
 
-  root :to => "cheque_runs#new"
+  root :to => "cheque_runs#index"
 
 
   # The priority is based upon order of creation:

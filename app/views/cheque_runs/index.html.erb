@@ -1,7 +1,10 @@
+<%= render partial: 'shared/upload_csv' %>
 <table id="cheque_runs">
-  <th>Number of Cheques</th>
+  <th>Created at</th>
+  <th># of Chqs</th>
   <% @cheque_runs.each do |cheque_run| %>
   <tr>
+    <td class="created_at"><%=link_to cheque_run.created_at.localtime.strftime("%Y-%m-%d %H:%M"), cheque_run_path(cheque_run, :format => 'html') %></td>
     <td class="count"><%= cheque_run.cheques.count %></td>
   </tr>
   <% end %>

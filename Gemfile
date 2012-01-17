@@ -24,3 +24,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
 end
+
+group :test do
+  gem 'timecop'
+end

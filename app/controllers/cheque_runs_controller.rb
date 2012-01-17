@@ -2,9 +2,6 @@ class ChequeRunsController < ApplicationController
 
   respond_to :html, :zip
   
-  def new
-  end
-
   def index
     @cheque_runs = current_user.cheque_runs
   end

@@ -2,20 +2,22 @@ require 'spec_helper'
 
 describe ChequeRunsController do
 
+  let(:current_user) do
+    User.create!(email: "current_@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
+  end
+
   let!(:cheque_run) do
-    user = User.create!(email: "cheque_runner@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
-    ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), user
+    ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), current_user
+  end
+
+  before do
+    basic_auth_login
+    sign_in current_user
   end
 
   describe "#show" do
 
     subject { get :show, :id => cheque_run.to_param, :format => format }
-
-    before do
-      basic_auth_login
-      @user = User.create!(email: 'email@example.com', password: 'foobar')
-      sign_in @user
-    end
 
     context "html" do
       let(:format) { 'html' }
@@ -42,6 +44,25 @@ describe ChequeRunsController do
 
         Cheque.where(cheque_run_id: cheque_run.id).should have(cheque_count).cheques
       end
+    end
+
+  end
+
+  describe "#index" do
+
+    subject { get :index }
+
+    it { should be_success }
+
+    it "should only list cheque runs owned by current user" do
+      other_user = User.create!(email: 'tobias@example.com', password: 'baz1234')
+      other_cheque_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), other_user
+      subject
+      assigns(:cheque_runs).should have_exactly(current_user.cheque_runs.count).items
+
+      current_user.cheque_runs.each { |cheque_run|
+        assigns(:cheque_runs).should include(cheque_run)
+      }
     end
 
   end
