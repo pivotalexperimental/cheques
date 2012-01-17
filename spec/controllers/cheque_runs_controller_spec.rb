@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe ChequeRunsController do
 
-  let(:current_user) do
-    User.create!(email: "current_@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
-  end
+  let(:current_user) { FactoryGirl.create(:user) }
 
   let!(:cheque_run) do
     ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), current_user
@@ -55,7 +53,7 @@ describe ChequeRunsController do
     it { should be_success }
 
     it "should only list cheque runs owned by current user" do
-      other_user = User.create!(email: 'tobias@example.com', password: 'baz1234')
+      other_user = FactoryGirl.create(:user)
       other_cheque_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), other_user
       subject
       assigns(:cheque_runs).should have_exactly(current_user.cheque_runs.count).items

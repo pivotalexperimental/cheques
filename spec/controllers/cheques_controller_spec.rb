@@ -11,10 +11,11 @@ describe ChequesController do
 
   describe "#show" do
 
+    let(:user) { FactoryGirl.create :user }
+
     before do
       basic_auth_login
-      @user = User.create(email: 'email@example.com', password: 'foobar')
-      sign_in @user
+      sign_in user
 
       @prawn_document = double(:prawn_document)
       cheque.stub!(:to_prawn).and_return(@prawn_document)

@@ -5,10 +5,11 @@ describe "/cheque_runs resource" do
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
+  let(:user) { FactoryGirl.create(:user, first_name: "Don", last_name: "Larsen") }
+
   before do
     fill_in_basic_auth
-    @user = User.create(email: "email@example.com", password: "foobar", first_name: "Donald", last_name: "Trump")
-    login_as @user
+    login_as user
   end
 
   describe '/cheque_runs' do
@@ -19,7 +20,7 @@ describe "/cheque_runs resource" do
 
       click_button 'Submit'
       cheque_run = ChequeRun.last
-      cheque_run.owner.should == @user
+      cheque_run.owner.should == user
 
       current_path.should == cheque_run_path(cheque_run)
       page.should have_css("table#cheque_run tr", :count => cheque_run.cheques.size)
@@ -35,7 +36,7 @@ CSV_DATA
 
       cheque_run = nil
       Timecop.freeze(2010,4,21, 23,45,32) do
-        cheque_run = ChequeRun.from_csv_string csv_string_3_cheques, @user
+        cheque_run = ChequeRun.from_csv_string csv_string_3_cheques, user
       end
 
       csv_string_1_cheque = <<CSV_DATA
@@ -57,7 +58,6 @@ CSV_DATA
 
   describe '/cheque_runs/:id' do
     let(:cheque_run) do
-      user = User.create!(:email => "email2@example.com", :password => "foobar", :first_name => "Don", :last_name => "Larsen")
       ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), user
     end
 
