@@ -91,17 +91,5 @@ CSV_DATA
       page.should have_css(".cheque_run_owner", :text => "Don Larsen")
     end
 
-    context "following the download link" do
-      before do
-        click_link "Download All"
-      end
-
-      it "redirects to root on reload" do
-        visit current_path
-        current_path.should == root_path
-      end
-
-    end
-
   end
 end

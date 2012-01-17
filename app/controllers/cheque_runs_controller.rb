@@ -24,8 +24,6 @@ class ChequeRunsController < ApplicationController
                   :type => 'application/zip',
                   :filename => "cheque_run_#{@cheque_run.id}.zip"
         tempfile.close
-
-        @cheque_run.destroy
       }
     end
 

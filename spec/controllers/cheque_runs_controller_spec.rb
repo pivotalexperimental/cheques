@@ -34,12 +34,13 @@ describe ChequeRunsController do
         response.headers['Content-Type'].should == 'application/zip'
       end
 
-      it "deletes everything" do
+      it "keeps the cheque run" do
+        cheque_count = cheque_run.cheques.count
         expect {
           subject
-        }.to change(ChequeRun, :count).by(-1)
+        }.to_not change(ChequeRun, :count)
 
-        Cheque.where(cheque_run_id: cheque_run.id).should have(0).cheques
+        Cheque.where(cheque_run_id: cheque_run.id).should have(cheque_count).cheques
       end
     end
 

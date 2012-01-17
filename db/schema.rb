@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20120110080900) do
 
+  create_table "cheque_csv_files", :force => true do |t|
+    t.string   "pdf_path"
+    t.integer  "valid_cheques_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cheque_runs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
