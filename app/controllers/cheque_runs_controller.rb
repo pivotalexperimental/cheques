@@ -3,7 +3,7 @@ class ChequeRunsController < ApplicationController
   respond_to :html, :zip
   
   def index
-    @cheque_runs = current_user.cheque_runs
+    @cheque_runs = ChequeRun.for_organization current_user.organization
   end
 
   def create

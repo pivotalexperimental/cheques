@@ -2,10 +2,12 @@
 <table id="cheque_runs">
   <th>Created at</th>
   <th># of Chqs</th>
+  <th>Owner</th>
   <% @cheque_runs.each do |cheque_run| %>
   <tr>
     <td class="created_at"><%=link_to cheque_run.created_at.localtime.strftime("%Y-%m-%d %H:%M"), cheque_run_path(cheque_run, :format => 'html') %></td>
     <td class="count"><%= cheque_run.cheques.count %></td>
+    <td class="owner"><%= cheque_run.owner.full_name %></td>
   </tr>
   <% end %>
 </table>

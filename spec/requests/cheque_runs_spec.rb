@@ -57,6 +57,7 @@ CSV_DATA
       within "table#cheque_runs tr" do
         page.should have_css("td.count", :text => "3")
         page.should have_css("td.created_at a[href='#{cheque_run_path(cheque_run, :format => 'html')}']", :text => "2010-04-21 23:45")
+        page.should have_css("td.owner", :text => user.full_name)
       end
 
     end

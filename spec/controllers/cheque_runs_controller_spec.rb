@@ -52,15 +52,25 @@ describe ChequeRunsController do
 
     it { should be_success }
 
-    it "should only list cheque runs owned by current user" do
-      other_user = FactoryGirl.create(:user)
-      other_cheque_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), other_user
+    it "should list cheque runs owned by current user" do
       subject
-      assigns(:cheque_runs).should have_exactly(current_user.cheque_runs.count).items
-
       current_user.cheque_runs.each { |cheque_run|
         assigns(:cheque_runs).should include(cheque_run)
       }
+    end
+
+    it "should list cheque runs by users of the same organization" do
+      other_user = FactoryGirl.create(:user, organization: current_user.organization)
+      other_cheque_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), other_user
+      subject
+      assigns(:cheque_runs).should include(other_cheque_run)
+    end
+
+    it "should not list cheque runs by users of a different organization" do
+      other_org_user = FactoryGirl.create(:user, organization: FactoryGirl.create(:organization, name: "Other Org"))
+      other_org_cheque_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), other_org_user
+      subject
+      assigns(:cheque_runs).should_not include(other_org_cheque_run)
     end
 
   end

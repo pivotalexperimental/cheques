@@ -2,6 +2,10 @@ class ChequeRun < ActiveRecord::Base
   has_many :cheques, :dependent => :destroy
   belongs_to :owner, :class_name => "User"
 
+  scope :for_organization, lambda { |organization|
+    joins(:owner).where('users.organization_id = ?', organization.id)
+  }
+
   def self.from_csv_file(file, owner)
     string = file.read
     self.from_csv_string(string, owner)
