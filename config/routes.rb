@@ -1,6 +1,8 @@
 Cheques::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users do
+    get "users/logout", :to => "devise/sessions#destroy", :as => "logout"
+  end
 
   resources :cheque_runs
   resources :cheques

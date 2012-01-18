@@ -9,7 +9,8 @@
 <body>
   <% unless current_user.nil? %>
   <span id="username"> <%=current_user.full_name%> </span> |
-  <span id="organization"> <%=current_user.organization.name%> </span>
+  <span id="organization"> <%=current_user.organization.name%> </span> |
+  <span> <%=link_to "Logout", logout_path%> </span>
   <% end %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
