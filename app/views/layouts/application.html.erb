@@ -7,7 +7,10 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-
+  <% unless current_user.nil? %>
+  <span id="username"> <%=current_user.full_name%> </span> |
+  <span id="organization"> <%=current_user.organization.name%> </span>
+  <% end %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   

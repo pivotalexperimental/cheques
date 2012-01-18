@@ -14,6 +14,12 @@ describe "/cheque_runs resource" do
 
   describe '/cheque_runs' do
 
+    it_should_behave_like "a logged in user page" do
+      before do
+        visit cheque_runs_path
+      end
+    end
+
     it "has a form that accepts and parses a cheque csv, and creates a ChequeRun with the current user as the owner" do
       visit cheque_runs_path
       attach_file('Cheque File', Rails.root.join('spec', 'fixtures', 'cheques.csv'))
@@ -64,6 +70,8 @@ CSV_DATA
     before do
       visit cheque_run_path cheque_run
     end
+
+    it_should_behave_like "a logged in user page"
 
     it "displays the parsed csv" do
       cheque_run.cheques.each do |cheque|
