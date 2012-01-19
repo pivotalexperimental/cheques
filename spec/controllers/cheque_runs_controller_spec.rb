@@ -44,6 +44,13 @@ describe ChequeRunsController do
       end
     end
 
+    it "forbids access if user organization does not own cheque run" do
+      rival = FactoryGirl.create :rival
+      rival_run = ChequeRun.from_csv_file Rails.root.join('spec', 'fixtures', 'cheques.csv'), rival
+      get :show, :id => rival_run.to_param, :format => "html"
+      response.status.should == 403
+    end
+
   end
 
   describe "#index" do

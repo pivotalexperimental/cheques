@@ -6,6 +6,10 @@ class ChequeRun < ActiveRecord::Base
     joins(:owner).where('users.organization_id = ?', organization.id)
   }
 
+  def from_organization?(organization)
+    organization == self.owner.organization
+  end
+
   def self.from_csv_file(file, owner)
     string = file.read
     self.from_csv_string(string, owner)

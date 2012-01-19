@@ -20,4 +20,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  def render_403
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false }
+      format.any(:zip,:pdf) { render nothing: true, status: 403 }
+    end
+  end
+
 end

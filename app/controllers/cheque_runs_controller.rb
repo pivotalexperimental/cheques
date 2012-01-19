@@ -13,6 +13,7 @@ class ChequeRunsController < ApplicationController
 
   def show
     @cheque_run = ChequeRun.find params[:id]
+    render_403 and return unless @cheque_run.from_organization?(current_user.organization)
 
     respond_with @cheque_run do |format|
       format.zip {
