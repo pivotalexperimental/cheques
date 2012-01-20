@@ -20,9 +20,9 @@ describe "/cheque_runs resource" do
     it_should_behave_like "a logged in user page"
 
     it "allows to change user password" do
-      fill_in "Password", with: "new_password"
-      fill_in "Password confirmation", with: "new_password"
       fill_in "Current password", with: user.password
+      fill_in "New password", with: "new_password"
+      fill_in "New password confirmation", with: "new_password"
       click_button "Update"
       page.current_path.should == root_path
       page.should have_css(".notice", text: "Password successfully updated")
@@ -35,18 +35,18 @@ describe "/cheque_runs resource" do
     end
 
     it "disallows change of password if current password is invalid" do
-      fill_in "Password", with: "new_password"
-      fill_in "Password confirmation", with: "new_password"
       fill_in "Current password", with: "wrong password"
+      fill_in "New password", with: "new_password"
+      fill_in "New password confirmation", with: "new_password"
       click_button "Update"
       page.should have_css("h2", text: "Edit #{user.full_name}")
       page.should have_css("div#error_explanation li", text: "Current password is invalid")
     end
 
-    it "disallows change of password if password confirmation doesn't match" do
-      fill_in "Password", with: "new_password"
-      fill_in "Password confirmation", with: "not the new_password"
+    it "disallows change of password if new password confirmation doesn't match" do
       fill_in "Current password", with: user.password
+      fill_in "New password", with: "new_password"
+      fill_in "New password confirmation", with: "not the new_password"
       click_button "Update"
       page.should have_css("h2", text: "Edit #{user.full_name}")
       page.should have_css("div#error_explanation li", text: "Password doesn't match confirmation")

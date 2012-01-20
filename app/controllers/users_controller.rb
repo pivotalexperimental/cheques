@@ -13,13 +13,15 @@ class UsersController < ApplicationController
     user = current_user
     current_password = params[:user].delete(:current_password)
 
-    if params[:user][:password].blank?
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+    if params[:user][:new_password].blank?
+      params[:user].delete(:new_password)
+      params[:user].delete(:new_password_confirmation) if params[:user][:new_password_confirmation].blank?
     end
 
     result = if user.valid_password?(current_password)
-      user.update_attributes(params[:user])
+      new_attributes = { password: params[:user][:new_password],
+                         password_confirmation: params[:user][:new_password_confirmation] }
+      user.update_attributes(new_attributes)
     else
       user.attributes = params[:user]
       user.valid?
