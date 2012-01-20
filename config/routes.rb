@@ -6,6 +6,7 @@ Cheques::Application.routes.draw do
 
   resources :cheque_runs
   resources :cheques
+  resources :users
 
   root :to => "cheque_runs#index"
 

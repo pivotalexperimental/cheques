@@ -1,7 +1,7 @@
 shared_examples_for "a logged in user page" do
 
   it "should have a username" do
-    page.should have_css("#username", text: user.full_name )
+    page.should have_css("#username a[href='#{edit_user_path(user)}']", text: user.full_name )
   end
 
   it "should show the user's organization" do

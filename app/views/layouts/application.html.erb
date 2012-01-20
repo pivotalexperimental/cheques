@@ -8,7 +8,7 @@
 </head>
 <body>
   <% unless current_user.nil? %>
-  <span id="username"> <%=current_user.full_name%> </span> |
+  <span id="username"> <%=link_to current_user.full_name, edit_user_path(current_user)%> </span> |
   <span id="organization"> <%=current_user.organization.name%> </span> |
   <span> <%=link_to "Logout", logout_path%> </span>
   <% end %>
