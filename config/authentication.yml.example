@@ -1,0 +1,11 @@
+production:
+  username: pivotal
+  password: toddy8apple
+
+development:
+  username: dev
+  password: dev
+
+test:
+  username: test
+  password: test

@@ -7,3 +7,4 @@ tmp/
 .pdf
 cheques
 .sass-cache/
+config/*.yml
