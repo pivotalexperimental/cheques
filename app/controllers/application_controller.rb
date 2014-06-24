@@ -3,14 +3,11 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
   before_filter :authenticate_user!
 
-  USER_ID = "pivotal"
-  PASSWORD = "toddy8apple"
-
   rescue_from ActiveRecord::RecordNotFound, :with => :root_redirect
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      username == USER_ID && password == PASSWORD
+      username == $htaccessUsername && password == $htaccessPassword
     end
   end
 
@@ -23,7 +20,7 @@ class ApplicationController < ActionController::Base
   def render_403
     respond_to do |format|
       format.html { render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false }
-      format.any(:zip,:pdf) { render nothing: true, status: 403 }
+      format.any(:zip,:pdf) { render :nothing => true, :status => 403 }
     end
   end
 
